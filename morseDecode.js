@@ -1,12 +1,16 @@
-String.prototype.times = function(n) {
-  return new Array(n + 1).join(this);
+function unmultiplyString (str, factor) {
+	ret = [];
+	str.split('').reduce(function (prev, current) {
+		if (prev === 0) {
+			ret.push(current);
+			return factor - 1;
+		}
+		return prev - 1;
+	}, factor - 1)
+	return ret.join('');
 }
 
-String.prototype.replaceAll = function(find, replace) {
-  return this.replace(new RegExp(find, 'g'), replace);
-}
-
-var decodeBits = function(bits){
+function decodeBits (bits) {
     bits = bits.substring(bits.indexOf('1'), bits.lastIndexOf('1') + 1); // remove leading/trailing 0's
     timeUnit = Math.floor(longestZeroSequence(bits) / 7);
     console.log("timeUnit: " + timeUnit);
