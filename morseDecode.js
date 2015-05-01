@@ -17,20 +17,25 @@ var decodeBits = function(bits){
                .replaceAll('0'.times(timeUnit), '');
 }
 
-var longestZeroSequence = function(s){
-  ret = 0;
-  current = 0;
-  for (i = 0; i < s.length; i++){
-    if (s[i] === '0'){
-      current += 1;
-    }
-    else {
-      ret = current > ret ? current : ret;
-      current = 0;
-    }
-  }
-  return ret;
+function shortestSequenceLength (str) {
+	return str.split('').reduce(function (prev, current) {
+		if (current === prev.character) {
+			prev.length = prev.length + 1;
+		} else {
+			if (prev.length < prev.shortestLength) {
+				prev.shortestLength = prev.length;
+			}
+			prev.character = current;
+			prev.length = 1;
+		}
+		return prev;
+	}, {
+		character: null,
+		length: Infinity,
+		shortestLength: Infinity
+	}).shortestLength;
 }
+
 
 var decodeMorse = function(morseCode){
  return morseCode.trim().split('   ')
