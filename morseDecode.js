@@ -1,3 +1,5 @@
+"use strict"
+
 function unmultiplyString (str, factor) {
 	ret = [];
 	str.split('').reduce(function (prev, current) {
@@ -8,17 +10,6 @@ function unmultiplyString (str, factor) {
 		return prev - 1;
 	}, factor - 1)
 	return ret.join('');
-}
-
-function decodeBits (bits) {
-    bits = bits.substring(bits.indexOf('1'), bits.lastIndexOf('1') + 1); // remove leading/trailing 0's
-    timeUnit = Math.floor(longestZeroSequence(bits) / 7);
-    console.log("timeUnit: " + timeUnit);
-    return bits.replaceAll('0000000'.times(timeUnit), '   ')
-               .replaceAll('000'.times(timeUnit), ' ')
-               .replaceAll('111'.times(timeUnit), '-')
-               .replaceAll('1'.times(timeUnit), '.')
-               .replaceAll('0'.times(timeUnit), '');
 }
 
 function shortestSequenceLength (str) {
@@ -40,6 +31,15 @@ function shortestSequenceLength (str) {
 	}).shortestLength;
 }
 
+function decodeBits (bits) {
+    bits = bits.substring(bits.indexOf('1'), bits.lastIndexOf('1') + 1); // remove leading/trailing 0's
+    bits = unmultiplyString(bits, shortestSequenceLength(bits));
+    return bits.replace(/0000000/g, '   ')
+               .replace(/000/g, ' ')
+               .replace(/111/g, '-')
+               .replace(/1/g, '.')
+               .replace(/0/g, '');
+}
 
 var decodeMorse = function(morseCode){
  return morseCode.trim().split('   ')
