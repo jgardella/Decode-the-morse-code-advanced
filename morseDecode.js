@@ -1,7 +1,7 @@
 "use strict"
 
 function unmultiplyString (str, factor) {
-	ret = [];
+	var ret = [];
 	str.split('').reduce(function (prev, current) {
 		if (prev === 0) {
 			ret.push(current);
@@ -13,7 +13,7 @@ function unmultiplyString (str, factor) {
 }
 
 function shortestSequenceLength (str) {
-	return str.split('').reduce(function (prev, current) {
+	var ret = str.split('').reduce(function (prev, current) {
 		if (current === prev.character) {
 			prev.length = prev.length + 1;
 		} else {
@@ -28,7 +28,8 @@ function shortestSequenceLength (str) {
 		character: null,
 		length: Infinity,
 		shortestLength: Infinity
-	}).shortestLength;
+	});
+	return (ret.length < ret.shortestLength) ?  ret.length : ret.shortestLength;
 }
 
 function decodeBits (bits) {
